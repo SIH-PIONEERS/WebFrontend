@@ -46,7 +46,7 @@ export const AuthContextProvider = ({ children }) => {
     // university start
 
 
-    const login = async ({ email, password,link }) => {
+    const login = async ({ email, password, link }) => {
         axios
             .post(`${host}${link}/login`, {
                 email, password
@@ -65,11 +65,11 @@ export const AuthContextProvider = ({ children }) => {
 
     };
 
-    const signup = async ({ email, password, name,link }) => {
+    const signup = async ({ email, password, name, link }) => {
         setLoading(true)
         axios
             .post(`${host}${link}/create`, {
-                email, password,name
+                email, password, name
             }
             )
             .then(res => {
@@ -84,30 +84,64 @@ export const AuthContextProvider = ({ children }) => {
                 console.log("error")
                 console.log('error in request', err.response.data.error);
                 setLoading(false)
-                alertN(err.response.data.error,1)
-                
+                alertN(err.response.data.error, 1)
+
+            });
+
+    }; const addSingleClg_Uni = async ({ collegeName, collegeEmail }) => {
+        let auth = localStorage.getItem('authtoken')
+        if (!auth) {
+            alert('Please login')
+            return false
+        }
+        axios
+            .post(`${host}university/addcollege`, {
+                collegeName, collegeEmail
+            }, {
+                headers: {
+                    'auth-token': auth,
+                    "enctype": "multipart/form-data"
+                },
+            })
+            .then(res => {
+                console.log('res', res.data);
+                alertN("done", 3)
+            })
+            .catch(err => {
+                console.log('error in request', err);
+                alert(err)
             });
 
     };
-    
-    // const signup = async ({ email, password, name,link }) => {
-    //     let credentials = {email, password,name};
-    //     let response = await fetch(`${host}${link}/create`, {
-    //       method: "POST",
-    //       headers: {
-    //         "Content-Type": "application/json",
-    //       },
-    //       body: JSON.stringify(credentials),
-    //     });
-    //     console.log("first")
-    //     // let res = await response.json();
-    //     // if (!res.success) {
-    //     //   alert(res.error);
-    //     // } else {
-    //     //   alert("done");
-    //     // }
-    //     // return res
-    //   };
+
+    const addBulkClg_Uni = async ({ file }) => {
+        let auth = localStorage.getItem('authtoken')
+        if (!auth) {
+            alert('Please login')
+            return false
+        }
+        const formData = new FormData()
+        formData.append("csvFile", file)
+        axios
+            .post(`${host}university/addcollege/bulk`,
+                formData, {
+                headers: {
+                    'auth-token': auth,
+                    "enctype": "multipart/form-data"
+                },
+            }
+            )
+            .then(res => {
+                console.log(res)
+                console.log('res', res.data);
+                alertN("done", 3)
+            })
+            .catch(err => {
+                console.log('error in request', err);
+                alert(err)
+            });
+
+    };
 
 
 
@@ -143,6 +177,9 @@ export const AuthContextProvider = ({ children }) => {
                 login,
                 signup,
                 fetch,
+
+                addBulkClg_Uni,
+                addSingleClg_Uni,
                 //university end
 
                 // loading start
