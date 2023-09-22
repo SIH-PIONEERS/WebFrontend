@@ -4,6 +4,7 @@ import CusButton from '@/components/CusButton'
 import React from 'react'
 import { signup as signupData } from '@/data/regester'
 import { useAuth } from '@/context/AuthContext'
+import Link from 'next/link'
 
 const page = () => {
 
@@ -11,9 +12,9 @@ const page = () => {
 
     const handlesignup = async (e) => {
         e.preventDefault();
-        
-        if(e.target.password.value != e.target.Cpassword.value){
-            alertN("Password doesn't match.",1)
+
+        if (e.target.password.value != e.target.Cpassword.value) {
+            alertN("Password doesn't match.", 1)
             return
         }
         signup({
@@ -35,7 +36,8 @@ const page = () => {
                         <Input data={e} key={i} />
                     ))
                 }
-                <CusButton text="Login" />
+                <CusButton text="Signup" />
+                Already Registered: <Link href="/college/login" className='text-blue'>Login</Link>
             </form>
         </main>
     )

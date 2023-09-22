@@ -13,7 +13,7 @@ const page = () => {
         // let a = await link.Login
         addBulk({
             file: e.target.file.files[0],
-            link: "university/addcollege/bulk"
+            link: "collegeworking/addstudent/bulk"
         });
         // console.log(a)
     };
@@ -24,14 +24,14 @@ const page = () => {
         addSingle({
             "name": e.target.clgName.value,
             "email": e.target.clgEmail.value,
-            link: "university/addcollege"
+            "link": "collegeworking/addstudent"
         });
         // console.log(a)
     };
 
     return (
         <main className='center flex-col'>
-            <h1 className='font-medium text-xl tracking-wide'>Add Colleges from Excel file</h1>
+            <h1 className='font-medium text-xl tracking-wide'>Add Student from Excel file</h1>
             <form action="" className='mb-10 center flex-col' onSubmit={handleBulk}>
                 <Input data={
                     {
@@ -41,26 +41,26 @@ const page = () => {
                         required: true,
                     }
                 } />
-                <CusButton text="Add Colleges" />
+                <CusButton text="Add Students" />
             </form>
             <Hr text="Or" />
-            <h1 className='font-medium text-xl tracking-wide mt-10'>Add College Manually</h1>
+            <h1 className='font-medium text-xl tracking-wide mt-10'>Add Student Manually</h1>
             <form action="" className='center flex-col' onSubmit={handleSingle}>
                 <Input data={
                     {
                         type: "text",
-                        label: "College Name",
+                        label: "Student Name",
                         name: "clgName",
                         required: true,
                     }} />
                 <Input data={
                     {
                         type: "email",
-                        label: "College Email",
+                        label: "Student Email",
                         name: "clgEmail",
                         required: true,
                     }} />
-                <CusButton text="Add College" />
+                <CusButton text="Add Student" />
             </form>
         </main>
     )

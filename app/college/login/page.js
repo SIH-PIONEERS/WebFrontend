@@ -4,6 +4,7 @@ import CusButton from '@/components/CusButton'
 import React from 'react'
 import { login as loginData } from '@/data/University'
 import { useAuth } from '@/context/AuthContext'
+import Link from 'next/link'
 
 const page = () => {
 
@@ -31,6 +32,7 @@ const page = () => {
                     ))
                 }
                 <CusButton text="Login" />
+                Not Registered: <Link href="/college/signup" className='text-blue'>Signup</Link>
             </form>
         </main>
     )
